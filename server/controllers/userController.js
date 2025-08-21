@@ -14,20 +14,6 @@ export const getUserData = async (req, res) => {
         res.json({success: false, message: error.message})
     }
 }
-//temporary file
-export const getUserTenp = async (req, res) => {
-    try {
-        const {userId} = req.auth()
-        const user = await User.findById(userId)
-        if(!user) {
-            return res.json({success: false, message: "User not found"})
-        }
-        res.json({success: true, user})
-    } catch (error) {
-        console.log(error);
-        res.json({success: false, message: error.message})
-    }
-}
 
 // Update User Data
 export const updateUserData = async (req, res) => {
