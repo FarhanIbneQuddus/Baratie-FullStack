@@ -6,7 +6,7 @@ import User from '../models/User.js';
 
 export const addPost = async(req, res) => {
     try{
-        const {userId} = req.auth;
+        const {userId} = req.auth();
         const {content, post_type} = req.body;
         const images = req.files
         
@@ -59,6 +59,31 @@ export const getFeedPosts = async (req,res)=> {
         const posts = await Post.find({user: {$in: userIds}}).populate('user').sort({createdAt: -1});
         
         res.json({success: true, posts})
+
+    }catch (error) {
+        console.log(error);
+        res.json({success: false, message: error.message});
+    }
+}
+
+// Like Post
+
+export const likePosts = async (req,res)=> {
+    try{
+        const {userId}=req.auth()
+        const{postId} = req.body;
+
+        const post = await Post.findById(postId)
+
+        if(post.likes_count.includes(userId)){
+            post.likes_count = post.likes_count.filter(user => user !== userId)
+            await post.save()
+            res.json({success: true, message: 'Post Unliked'});
+        }else{
+            post.likes_count.push(userId)
+            await post.save()
+            res.json({success: true, message: 'Post liked'});
+        }
 
     }catch (error) {
         console.log(error);
