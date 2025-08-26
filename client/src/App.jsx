@@ -19,7 +19,7 @@ const App = () => {
   const {user} = useUser()
   const {getToken} = useAuth()
 
-  const dispatch = userDispatch()
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     const fetchData = async () => {

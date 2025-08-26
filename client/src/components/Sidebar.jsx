@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
 
     const navigate = useNavigate()
-    const user = useSelector((state)=>state.user.value)
+    const user = useSelector((state) => state.user.value)
     const {signOut} = useClerk()
 
   return (

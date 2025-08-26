@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 const Layout = () => {
   
-  const user = useSelector((state)=>state.user.value)
+  const user = useSelector((state) => state.user.value)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   
   return user ? (
