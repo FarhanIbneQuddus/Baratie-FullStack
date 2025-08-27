@@ -12,7 +12,6 @@ const PostCard = ({post}) => {
     const currentUser = useSelector((state) => state.user.value)
     const handleLike = async () => {
          
-//Hi
     }
 
     const navigate = useNavigate()
