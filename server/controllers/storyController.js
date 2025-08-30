@@ -14,7 +14,7 @@ export const addUserStory = async (req,res) => {
 
         //Upload media to imageKit
 
-        if(media_type === 'image'|| media_type === 'video'){
+        if(media_type == 'image'|| media_type == 'video'){
             const fileBuffer = fs.readFileSync(media.path)
             const response = await imagekit.upload({
                 file: fileBuffer,
@@ -28,6 +28,7 @@ export const addUserStory = async (req,res) => {
             user: userId,
             content,
             media_url,
+            media_type,
             background_color,
         })
 
