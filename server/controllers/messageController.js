@@ -13,10 +13,10 @@ export const sseController = (req,res)=>{
     console.log('New Client Connected : ', userId)
 
     //Set SSE headers
-    res.setHeaders('Content-Type', 'text/event-stream');
-    res.setHeaders('Cache-Control', 'no-cache');
-    res.setHeaders('Connection', 'keep-alive');
-    res.setHeaders('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     //Add the client's response object to the connection object
     connections[userId] = res
@@ -27,13 +27,13 @@ export const sseController = (req,res)=>{
     //Handle client disconnection
     req.on('close', ()=>{
         //Remove the client's response object from the connections array
-        delete connections[userId]
+        delete connections[userId];
         console.log('Client disconnected');
     })
 }
 
 // Send Message
-export const sendMessage = async (req,res) => {
+export const sendMessage = async (req, res) => {
     try{
         const {userId} = req.auth();
         const {to_user_id, text} = req.body;
@@ -84,7 +84,7 @@ export const sendMessage = async (req,res) => {
 
 //Get Chat Messages
 
-export const getChatMessages = async(req,res)=>{
+export const getChatMessages = async(req, res)=>{
     try{
         const {userId} = req.auth();
         const {to_user_id} = req.body;
@@ -104,7 +104,7 @@ export const getChatMessages = async(req,res)=>{
     }
 }
 
-export const getUserRecentMessages = async(req,res)=> {
+export const getUserRecentMessages = async(req, res)=> {
     try{
         const {userId} = req.auth();
         const messages = await Message.find({to_user_id: userId}.populate('from_user_id to_user_id')).sort({ created_at: -1 });
